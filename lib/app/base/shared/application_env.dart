@@ -1,15 +1,7 @@
-const baseDevUrl = 'https://api-dev.criptix.app';
-const baseProdUrl = 'https://api.criptix.app';
-
-const _redeemFeature = String.fromEnvironment(
-  'REDEEM_FEATURE',
-  defaultValue: 'false',
-);
+const baseWordUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
 class AppEnvironment {
   static String get baseUrl {
-    return baseDevUrl;
+    return baseWordUrl;
   }
-
-  static bool get redeemFeature => _redeemFeature == 'true';
 }
