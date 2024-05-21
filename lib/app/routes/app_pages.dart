@@ -4,6 +4,8 @@ import '../modules/home/home_binding.dart';
 import '../modules/home/home_page.dart';
 import '../modules/splash/splash_binding.dart';
 import '../modules/splash/splash_page.dart';
+import '../modules/word/word_binding.dart';
+import '../modules/word/word_page.dart';
 
 part 'app_routes.dart';
 
@@ -24,11 +26,11 @@ class AppPages {
       binding: HomeBinding(),
     ),
 
-    //LOGIN PAGE
-    // GetPage(
-    //   name: Routes.LOGIN,
-    //   page: () => const LoginPage(),
-    //   binding: LoginBinding(),
-    // ),
+    //WORD PAGE
+    GetPage(
+      name: Routes.WORD,
+      page: () => const WordPage(),
+      binding: WordBinding(),
+    ),
   ];
 }
