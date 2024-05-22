@@ -1,10 +1,12 @@
+import 'package:dictionary/app/modules/home/widgets/favorite_list_widget.dart';
+import 'package:dictionary/app/modules/home/widgets/word_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_text_style.dart';
 import 'home_controller.dart';
 
-class HomePage extends GetView<HomePageController> {
+class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
 
   @override
@@ -31,9 +33,12 @@ class HomePage extends GetView<HomePageController> {
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                       selectedBorderColor: green,
                       selectedColor: Colors.white,
+                      borderColor: appBackgroundColor,
                       fillColor: mediumGreen,
                       color: green,
-                      textStyle: appTextStyle.withFontSize(18),
+                      textStyle: appTextStyle
+                          .withFontSize(18)
+                          .withFontWeight(FontWeight.bold),
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 120.0,
@@ -52,59 +57,14 @@ class HomePage extends GetView<HomePageController> {
                     );
                   }
                   if (controller.selectedToogleButtons[0] == true) {
-                    return Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          crossAxisCount: 3,
-                          children: [
-                            ...controller.data.keys.map(
-                              (word) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  customBorder: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  onTap: () => controller.goToWordPage(word),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: green,
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        (word as String).capitalizeFirst!,
-                                        style: appTextStyle
-                                            .withColor(green)
-                                            .withFontSize(18),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    return WordListWidget(
+                      controller: controller,
                     );
                   } else if (controller.selectedToogleButtons[1] == true) {
                     return const Text('History');
                   }
-                  return Column(
-                    children: [
-                      const Text('Favorites'),
-                      ...controller.favoriteList.map(
-                        (e) => ListTile(
-                          leading: const Icon(Icons.star),
-                          title: Text(e),
-                        ),
-                      ),
-                    ],
+                  return FavoriteListWidget(
+                    controller: controller,
                   );
                 },
               ),

@@ -9,17 +9,18 @@ import '../../data/repository/word/i_word_repository.dart';
 import '../../domain/entities/word_entity.dart';
 import '../../theme/app_colors.dart';
 
-class HomePageController extends ApplicationController {
+class HomeController extends ApplicationController {
+  bool get _isFavoritedSelected => selectedToogleButtons[2] == true;
+
   final List<Widget> fruits = const <Widget>[
     Text('Word list'),
     Text('History'),
     Text('Favorites')
   ];
+
   final RxList<bool> selectedToogleButtons = <bool>[true, false, false].obs;
   final RxList<String> favoriteList = <String>[].obs;
   RxMap data = {}.obs;
-
-  final IWordRepository iWordRepository;
 
   Rx<WordEntity> wordEntity = WordEntity(
     word: '',
@@ -29,7 +30,9 @@ class HomePageController extends ApplicationController {
     sourceUrls: [],
   ).obs;
 
-  HomePageController({
+  final IWordRepository iWordRepository;
+
+  HomeController({
     required this.iWordRepository,
   });
 
@@ -43,7 +46,7 @@ class HomePageController extends ApplicationController {
 
   Future<void> readJson() async {
     final String response =
-        await rootBundle.loadString('assets/words_dictionary2.json');
+        await rootBundle.loadString('assets/words_dictionary.json');
     data.value = await compute(parseJson, response);
   }
 
@@ -77,11 +80,19 @@ class HomePageController extends ApplicationController {
     }
   }
 
+  Future<void> refreshFavoriteListMiddleware() async {
+    showLoading.value = true;
+    if (_isFavoritedSelected) {
+      favoriteList.value = await iWordRepository.getAllFavorites();
+    }
+    showLoading.value = false;
+  }
+
   Future<void> toogleButtonAction(int index) async {
     for (int i = 0; i < selectedToogleButtons.length; i++) {
       selectedToogleButtons[i] = i == index;
     }
-    if (index == 2) {
+    if (_isFavoritedSelected) {
       favoriteList.value = await iWordRepository.getAllFavorites();
     }
   }

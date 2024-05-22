@@ -26,7 +26,7 @@ class HomeBinding implements Bindings {
       ),
     );
     Get.put(
-      HomePageController(
+      HomeController(
         iWordRepository: Get.find<IWordRepository>(),
       ),
     );

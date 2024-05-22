@@ -19,7 +19,7 @@ class WordPage extends GetView<WordController> {
             Icons.close,
             color: white,
           ),
-          onPressed: () => Get.back(),
+          onPressed: controller.backAction,
         ),
       ),
       extendBody: true,

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../base/middleware/home_reload_middleware.dart';
 import '../modules/home/home_binding.dart';
 import '../modules/home/home_page.dart';
 import '../modules/splash/splash_binding.dart';
@@ -31,6 +32,9 @@ class AppPages {
       name: Routes.WORD,
       page: () => const WordPage(),
       binding: WordBinding(),
+      middlewares: [
+        HomePageMiddleware(),
+      ],
     ),
   ];
 }

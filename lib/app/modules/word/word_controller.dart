@@ -42,4 +42,8 @@ class WordController extends ApplicationController {
     final favoritedList = await iWordRepository.getAllFavorites();
     favorited.value = favoritedList.contains(wordParameter.word);
   }
+
+  void backAction() {
+    Get.back();
+  }
 }
