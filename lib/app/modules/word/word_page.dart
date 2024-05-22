@@ -1,4 +1,3 @@
-import 'package:dictionary/app/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,53 +21,79 @@ class WordPage extends GetView<WordController> {
           onPressed: () => Get.back(),
         ),
       ),
+      extendBody: true,
       backgroundColor: appBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Column(
-          children: [
-            Card(
-              elevation: 2,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    title: Text(controller.word),
-                    subtitle: const Text(
-                        'Music by Julie Gable. Lyrics by Sidney Stein.'),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5.0,
+            vertical: 1.0,
+          ),
+          child: Column(
+            children: [
+              Card(
+                elevation: 2,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(controller.wordParameter.word),
+                      subtitle: controller.wordParameter.phonetics.isNotEmpty
+                          ? Text(
+                              controller.wordParameter.phonetics.first.text ??
+                                  '')
+                          : const SizedBox(),
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: controller.wordParameter.phonetics.any(
+                  (phonetic) => phonetic.audio.isNotEmpty,
+                ),
+                child: TextButton(
+                  onPressed: controller.play,
+                  child: const Text('play'),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.wordParameter.meanings.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.label),
+                          title: Text(controller
+                              .wordParameter.meanings[index].partOfSpeech),
+                        ),
+                        ...controller.wordParameter.meanings[index].definitions
+                            .map(
+                          (definition) => Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(definition.definition),
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: Get.back,
+                    child: const Text('Voltar'),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Próximo'),
                   ),
                 ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Meanings',
-                style: appTextStyle.withFontSize(28),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'blablablalba',
-                style: appTextStyle.withFontSize(16),
-              ),
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: Get.back,
-                  child: const Text('Voltar'),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Próximo'),
-                ),
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

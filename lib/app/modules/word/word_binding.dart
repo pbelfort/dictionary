@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'word_controller.dart';
 
 class WordBinding implements Bindings {

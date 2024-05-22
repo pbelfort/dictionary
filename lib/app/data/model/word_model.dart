@@ -12,17 +12,17 @@ class WordModel extends WordEntity {
     required super.sourceUrls,
   });
 
-  factory WordModel.fromJson(Map<String, dynamic> json) {
+  factory WordModel.fromJson(List<dynamic> json) {
     return WordModel(
-      word: json['word'],
-      phonetics: (json['phonetics'] as List)
+      word: json.first['word'],
+      phonetics: (json.first['phonetics'] as List)
           .map((i) => PhoneticModel.fromJson(i))
           .toList(),
-      meanings: (json['meanings'] as List)
+      meanings: (json.first['meanings'] as List)
           .map((i) => MeaningModel.fromJson(i))
           .toList(),
-      license: LicenseModel.fromJson(json['license']),
-      sourceUrls: List<String>.from(json['sourceUrls']),
+      license: LicenseModel.fromJson(json.first['license']),
+      sourceUrls: List<String>.from(json.first['sourceUrls']),
     );
   }
 }

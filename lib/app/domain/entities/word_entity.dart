@@ -6,7 +6,7 @@ class WordEntity {
   final String word;
   final List<PhoneticEntity> phonetics;
   final List<MeaningEntity> meanings;
-  final LicenseEntity license;
+  final LicenseEntity? license;
   final List<String> sourceUrls;
 
   WordEntity({
