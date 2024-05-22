@@ -15,6 +15,7 @@ dependencies:
   http: ^1.0.0
   get: ^4.6.5
   gherkin: ^3.1.0
+  audioplayers: ^6.0.0
 
 
   cupertino_icons: ^1.0.6
@@ -31,3 +32,4 @@ flutter:
 
   assets:
     - assets/words_dictionary.json
+    - assets/words_dictionary2.json
