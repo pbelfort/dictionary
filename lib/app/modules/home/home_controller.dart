@@ -15,7 +15,8 @@ class HomePageController extends ApplicationController {
     Text('History'),
     Text('Favorites')
   ];
-  final RxList<bool> selectedFruits = <bool>[true, false, false].obs;
+  final RxList<bool> selectedToogleButtons = <bool>[true, false, false].obs;
+  final RxList<String> favoriteList = <String>[].obs;
   RxMap data = {}.obs;
 
   final IWordRepository iWordRepository;
@@ -31,8 +32,6 @@ class HomePageController extends ApplicationController {
   HomePageController({
     required this.iWordRepository,
   });
-
-  void favorite() {}
 
   @override
   onInit() async {
@@ -66,5 +65,14 @@ class HomePageController extends ApplicationController {
     Get.toNamed(Routes.WORD, arguments: {
       'wordEntity': wordEntity.value,
     });
+  }
+
+  Future<void> toogleButtonAction(int index) async {
+    for (int i = 0; i < selectedToogleButtons.length; i++) {
+      selectedToogleButtons[i] = i == index;
+    }
+    if (index == 2) {
+      favoriteList.value = await iWordRepository.getAllFavorites();
+    }
   }
 }

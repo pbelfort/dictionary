@@ -16,6 +16,7 @@ dependencies:
   get: ^4.6.5
   gherkin: ^3.1.0
   audioplayers: ^6.0.0
+  shared_preferences: ^2.2.3
 
 
   cupertino_icons: ^1.0.6

@@ -37,7 +37,23 @@ class WordPage extends GetView<WordController> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      title: Text(controller.wordParameter.word),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(controller.wordParameter.word),
+                          IconButton(
+                            onPressed: controller.favorite,
+                            icon: Obx(
+                              () => Icon(
+                                Icons.star,
+                                color: controller.favorited.value
+                                    ? green
+                                    : kSecondaryTextColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                       subtitle: controller.wordParameter.phonetics.isNotEmpty
                           ? Text(
                               controller.wordParameter.phonetics.first.text ??

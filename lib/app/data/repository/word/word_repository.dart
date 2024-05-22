@@ -11,4 +11,16 @@ class WordRepository implements IWordRepository {
     final response = await provider.getWordAttributesFromApi(word);
     return response;
   }
+
+  @override
+  Future<void> favorite(String wordFavorited) async {
+    final response = await provider.favorite(wordFavorited);
+    return response;
+  }
+
+  @override
+  Future<List<String>> getAllFavorites() async {
+    final response = await provider.getAllFavorites();
+    return response;
+  }
 }

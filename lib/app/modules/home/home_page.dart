@@ -26,13 +26,8 @@ class HomePage extends GetView<HomePageController> {
                   Obx(
                     () => ToggleButtons(
                       direction: Axis.horizontal,
-                      onPressed: (int index) {
-                        for (int i = 0;
-                            i < controller.selectedFruits.length;
-                            i++) {
-                          controller.selectedFruits[i] = i == index;
-                        }
-                      },
+                      onPressed: (int index) async =>
+                          await controller.toogleButtonAction(index),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                       selectedBorderColor: green,
                       selectedColor: Colors.white,
@@ -42,7 +37,7 @@ class HomePage extends GetView<HomePageController> {
                         minHeight: 40.0,
                         minWidth: 80.0,
                       ),
-                      isSelected: controller.selectedFruits,
+                      isSelected: controller.selectedToogleButtons,
                       children: controller.fruits,
                     ),
                   ),
@@ -55,7 +50,7 @@ class HomePage extends GetView<HomePageController> {
                       color: green,
                     );
                   }
-                  if (controller.selectedFruits[0] == true) {
+                  if (controller.selectedToogleButtons[0] == true) {
                     return Expanded(
                       child: GridView.count(
                         shrinkWrap: true,
@@ -82,10 +77,20 @@ class HomePage extends GetView<HomePageController> {
                         ],
                       ),
                     );
-                  } else if (controller.selectedFruits[1] == true) {
+                  } else if (controller.selectedToogleButtons[1] == true) {
                     return const Text('History');
                   }
-                  return const Text('Favorites');
+                  return Column(
+                    children: [
+                      const Text('Favorites'),
+                      ...controller.favoriteList.map(
+                        (e) => ListTile(
+                          leading: const Icon(Icons.star),
+                          title: Text(e),
+                        ),
+                      ),
+                    ],
+                  );
                 },
               ),
             ],
