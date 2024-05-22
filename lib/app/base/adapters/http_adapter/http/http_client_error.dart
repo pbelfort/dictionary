@@ -4,6 +4,7 @@ import 'http_error.dart';
 class HttpClientError extends HttpError implements ClientException {
   HttpClientError({
     dynamic data,
+    required super.title,
     required super.message,
     required super.statusCode,
   });

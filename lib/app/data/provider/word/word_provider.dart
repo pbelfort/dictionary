@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:either_dart/either.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../base/adapters/http_adapter/http/http_error.dart';
 import '../../../base/adapters/http_adapter/http/i_http_adapter.dart';
 import '../../../base/adapters/shared_adapter/shared_preferences/shared_preferences_adapter.dart';
 import '../../../base/shared/application_env.dart';
@@ -14,20 +16,26 @@ class WordProvider implements IWordProvider {
   WordProvider({required this.http});
 
   @override
-  Future<WordEntity?> getWordAttributesFromApi(String word) async {
-    try {
-      final response = await http.get(
-        uri: '${AppEnvironment.baseUrl}/$word',
-        headers: null,
-      );
+  Future<Either<HttpError, WordEntity>> getWordAttributesFromApi(
+      String word) async {
+    final response = await http.get(
+      uri: '${AppEnvironment.baseUrl}/$word',
+      headers: null,
+    );
 
-      if (response.statusCode == 200) {
-        return WordModel.fromJson(response.body);
-      }
-    } catch (e) {
-      //do nothing
+    if (response.statusCode == 200) {
+      return Right(
+        WordModel.fromJson(response.body),
+      );
     }
-    return null;
+
+    return Left(
+      HttpError(
+        title: response.body['title'],
+        message: response.body['message'],
+        statusCode: response.statusCode,
+      ),
+    );
   }
 
   @override

@@ -26,6 +26,7 @@ class HttpAdapter implements IHttpAdapter {
       );
     } on ClientException catch (e) {
       throw HttpClientError(
+        title: 'Internal server error',
         message: e.message,
         statusCode: 500,
       );
@@ -52,6 +53,7 @@ class HttpAdapter implements IHttpAdapter {
       );
     } on ClientException catch (e) {
       throw HttpClientError(
+        title: 'Internal server error',
         message: e.message,
         statusCode: 500,
       );

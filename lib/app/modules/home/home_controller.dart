@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:dictionary/app/routes/app_pages.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -43,28 +43,38 @@ class HomePageController extends ApplicationController {
 
   Future<void> readJson() async {
     final String response =
-        await rootBundle.loadString('assets/words_dictionary2.json');
-    data.value = await json.decode(response);
+        await rootBundle.loadString('assets/words_dictionary.json');
+    data.value = await compute(parseJson, response);
+  }
+
+  static Map<String, dynamic> parseJson(String response) {
+    return json.decode(response);
   }
 
   Future<void> goToWordPage(String word) async {
-    final result = await iWordRepository.getWordAttributes(word);
-    if (result == null) {
-      showSnackBar(
-        title: 'title',
-        message: 'message',
-        backgroundColor: green,
-        colorText: red,
-        iconData: Icons.abc,
-        iconColor: red,
-      );
-      return;
-    }
-    wordEntity.value = result;
+    try {
+      final result = await iWordRepository.getWordAttributes(word);
 
-    Get.toNamed(Routes.WORD, arguments: {
-      'wordEntity': wordEntity.value,
-    });
+      if (result.isLeft) {
+        showSnackBar(
+          title: result.left.title,
+          message: result.left.message,
+          backgroundColor: green,
+          colorText: red,
+          iconData: Icons.abc,
+          iconColor: red,
+        );
+        return;
+      }
+
+      wordEntity.value = result.right;
+
+      Get.toNamed(Routes.WORD, arguments: {
+        'wordEntity': wordEntity.value,
+      });
+    } catch (e) {
+      //do nothing
+    }
   }
 
   Future<void> toogleButtonAction(int index) async {
