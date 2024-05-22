@@ -18,10 +18,10 @@ class HttpAdapter implements IHttpAdapter {
     try {
       final url = Uri.parse(uri);
       final response = await http.get(url, headers: headers);
-      final jsonBody = jsonDecode(response.body)['data'];
+      final jsonBody = jsonDecode(response.body);
 
       return HttpResponse(
-        body: jsonBody ?? jsonDecode(response.body),
+        body: jsonBody,
         statusCode: response.statusCode,
       );
     } on ClientException catch (e) {
