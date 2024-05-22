@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dictionary/app/domain/entities/historic_entity.dart';
 import 'package:dictionary/app/routes/app_pages.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../base/shared/application_controller.dart';
 import '../../data/repository/word/i_word_repository.dart';
+import '../../domain/entities/favorited_entity.dart';
 import '../../domain/entities/word_entity.dart';
 import '../../theme/app_colors.dart';
 
 class HomeController extends ApplicationController {
   bool get _isFavoritedSelected => selectedToogleButtons[2] == true;
+  bool get _isHistoricSelected => selectedToogleButtons[1] == true;
 
   final List<Widget> fruits = const <Widget>[
     Text('Word list'),
@@ -19,7 +22,9 @@ class HomeController extends ApplicationController {
   ];
 
   final RxList<bool> selectedToogleButtons = <bool>[true, false, false].obs;
-  final RxList<String> favoriteList = <String>[].obs;
+  final RxList<FavoritedEntity> favoriteList = <FavoritedEntity>[].obs;
+  final RxList<HistoricEntity> historicList = <HistoricEntity>[].obs;
+
   RxMap data = {}.obs;
 
   Rx<WordEntity> wordEntity = WordEntity(
@@ -46,7 +51,7 @@ class HomeController extends ApplicationController {
 
   Future<void> readJson() async {
     final String response =
-        await rootBundle.loadString('assets/words_dictionary.json');
+        await rootBundle.loadString('assets/words_dictionary2.json');
     data.value = await compute(parseJson, response);
   }
 
@@ -94,6 +99,10 @@ class HomeController extends ApplicationController {
     }
     if (_isFavoritedSelected) {
       favoriteList.value = await iWordRepository.getAllFavorites();
+      return;
+    }
+    if (_isHistoricSelected) {
+      historicList.value = await iWordRepository.getHistoric();
     }
   }
 }

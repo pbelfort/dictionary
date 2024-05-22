@@ -1,4 +1,5 @@
 import 'package:dictionary/app/modules/home/widgets/favorite_list_widget.dart';
+import 'package:dictionary/app/modules/home/widgets/historic_list_widget.dart';
 import 'package:dictionary/app/modules/home/widgets/word_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,8 +61,11 @@ class HomePage extends GetView<HomeController> {
                     return WordListWidget(
                       controller: controller,
                     );
-                  } else if (controller.selectedToogleButtons[1] == true) {
-                    return const Text('History');
+                  }
+                  if (controller.selectedToogleButtons[1] == true) {
+                    return HistoricListWidget(
+                      controller: controller,
+                    );
                   }
                   return FavoriteListWidget(
                     controller: controller,

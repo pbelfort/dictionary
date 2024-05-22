@@ -1,13 +1,14 @@
 import 'package:dictionary/app/theme/app_colors.dart';
 import 'package:dictionary/app/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../home_controller.dart';
 
-class FavoriteListWidget extends StatelessWidget {
+class HistoricListWidget extends StatelessWidget {
   final HomeController controller;
 
-  const FavoriteListWidget({
+  const HistoricListWidget({
     super.key,
     required this.controller,
   });
@@ -16,7 +17,7 @@ class FavoriteListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: controller.favoriteList.length,
+        itemCount: controller.historicList.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(
@@ -24,13 +25,16 @@ class FavoriteListWidget extends StatelessWidget {
               vertical: 1.0,
             ),
             child: ListTile(
-              leading: const Icon(Icons.star),
+              leading: const Icon(Icons.history),
               title: Text(
-                controller.favoriteList[index].word,
+                controller.historicList[index].word,
                 style: appTextStyle.withColor(white).withFontSize(18),
               ),
-              onTap: () =>
-                  controller.goToWordPage(controller.favoriteList[index].word),
+              subtitle: Text(
+                DateFormat('yyyy-MM-dd hh:mm')
+                    .format(controller.historicList[index].dateTime),
+                style: appTextStyle.withColor(white).withFontSize(18),
+              ),
               iconColor: green,
             ),
           );

@@ -1,4 +1,6 @@
 import 'package:dictionary/app/base/shared/application_controller.dart';
+import 'package:dictionary/app/domain/entities/favorited_entity.dart';
+import 'package:dictionary/app/domain/entities/historic_entity.dart';
 import 'package:dictionary/app/domain/entities/word_entity.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +23,7 @@ class WordController extends ApplicationController {
 
   @override
   onInit() async {
+    _store();
     _checkFavorites();
     super.onInit();
   }
@@ -34,13 +37,27 @@ class WordController extends ApplicationController {
   }
 
   Future<void> favorite() async {
-    await iWordRepository.favorite(wordParameter.word);
+    final favorited = FavoritedEntity(
+      uuidUser: 'uuidUser',
+      word: wordParameter.word,
+    );
+    await iWordRepository.favorite(favorited);
     _checkFavorites();
+  }
+
+  _store() async {
+    final historicEntity = HistoricEntity(
+      uuidUser: 'uuidUser',
+      word: wordParameter.word,
+      dateTime: DateTime.now(),
+    );
+    await iWordRepository.store(historicEntity);
   }
 
   Future<void> _checkFavorites() async {
     final favoritedList = await iWordRepository.getAllFavorites();
-    favorited.value = favoritedList.contains(wordParameter.word);
+    favorited.value =
+        favoritedList.any((favorited) => favorited.word == wordParameter.word);
   }
 
   void backAction() {
