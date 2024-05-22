@@ -1,7 +1,8 @@
+import 'package:dictionary/app/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../theme/app_colors.dart';
+import 'widgets/player_widget.dart';
 import 'word_controller.dart';
 
 class WordPage extends GetView<WordController> {
@@ -32,6 +33,7 @@ class WordPage extends GetView<WordController> {
           child: Column(
             children: [
               Card(
+                color: darkGray,
                 elevation: 2,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -40,7 +42,11 @@ class WordPage extends GetView<WordController> {
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(controller.wordParameter.word),
+                          Text(
+                            controller.wordParameter.word,
+                            style:
+                                appTextStyle.withColor(white).withFontSize(22),
+                          ),
                           IconButton(
                             onPressed: controller.favorite,
                             icon: Obx(
@@ -48,7 +54,7 @@ class WordPage extends GetView<WordController> {
                                 Icons.star,
                                 color: controller.favorited.value
                                     ? green
-                                    : kSecondaryTextColor,
+                                    : ligthGray,
                               ),
                             ),
                           )
@@ -57,7 +63,9 @@ class WordPage extends GetView<WordController> {
                       subtitle: controller.wordParameter.phonetics.isNotEmpty
                           ? Text(
                               controller.wordParameter.phonetics.first.text ??
-                                  '')
+                                  '',
+                              style: appTextStyle.withColor(white),
+                            )
                           : const SizedBox(),
                     ),
                   ],
@@ -67,30 +75,51 @@ class WordPage extends GetView<WordController> {
                 visible: controller.wordParameter.phonetics.any(
                   (phonetic) => phonetic.audio.isNotEmpty,
                 ),
-                child: TextButton(
-                  onPressed: controller.play,
-                  child: const Text('play'),
+                child: PlayerWidget(
+                  player: controller.audioAdapter.player,
+                  playAction: controller.play,
                 ),
               ),
               Expanded(
                 child: ListView.builder(
                   itemCount: controller.wordParameter.meanings.length,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          leading: const Icon(Icons.label),
-                          title: Text(controller
-                              .wordParameter.meanings[index].partOfSpeech),
-                        ),
-                        ...controller.wordParameter.meanings[index].definitions
-                            .map(
-                          (definition) => Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(definition.definition),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 1.0,
+                      ),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: const Icon(
+                              Icons.label,
+                              size: 20,
+                              color: ligthGray,
+                            ),
+                            title: Text(
+                              controller
+                                  .wordParameter.meanings[index].partOfSpeech,
+                              style: appTextStyle
+                                  .withColor(white)
+                                  .withFontSize(22),
+                            ),
                           ),
-                        )
-                      ],
+                          ...controller
+                              .wordParameter.meanings[index].definitions
+                              .map(
+                            (definition) => Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                definition.definition,
+                                style: appTextStyle
+                                    .withColor(white)
+                                    .withFontSize(18),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   },
                 ),

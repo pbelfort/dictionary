@@ -21,7 +21,7 @@ class SplashPage extends GetView<SplashController> {
             child: Container(
               height: 25,
               width: 25,
-              color: greenSplash,
+              color: green,
             ),
           ),
         ),

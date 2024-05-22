@@ -43,7 +43,7 @@ class HomePageController extends ApplicationController {
 
   Future<void> readJson() async {
     final String response =
-        await rootBundle.loadString('assets/words_dictionary.json');
+        await rootBundle.loadString('assets/words_dictionary2.json');
     data.value = await compute(parseJson, response);
   }
 

@@ -8,6 +8,8 @@ import '../../data/repository/word/i_word_repository.dart';
 class WordController extends ApplicationController {
   final WordEntity wordParameter = Get.arguments['wordEntity']!;
   final audioAdapter = AudioAdapter();
+  Rx<Duration> durationPlayer = const Duration().obs;
+  Rx<Duration> positionPlayer = const Duration().obs;
 
   RxBool favorited = false.obs;
 

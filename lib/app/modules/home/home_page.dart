@@ -15,8 +15,8 @@ class HomePage extends GetView<HomePageController> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 5.0,
-            vertical: 1.0,
+            horizontal: 12.0,
+            vertical: 8.0,
           ),
           child: Column(
             children: [
@@ -33,9 +33,10 @@ class HomePage extends GetView<HomePageController> {
                       selectedColor: Colors.white,
                       fillColor: mediumGreen,
                       color: green,
+                      textStyle: appTextStyle.withFontSize(18),
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
-                        minWidth: 80.0,
+                        minWidth: 120.0,
                       ),
                       isSelected: controller.selectedToogleButtons,
                       children: controller.fruits,
@@ -52,29 +53,43 @@ class HomePage extends GetView<HomePageController> {
                   }
                   if (controller.selectedToogleButtons[0] == true) {
                     return Expanded(
-                      child: GridView.count(
-                        shrinkWrap: true,
-                        crossAxisCount: 3,
-                        children: [
-                          ...controller.data.keys.map(
-                            (e) => Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: green,
-                                ),
-                              ),
-                              child: Center(
-                                child: TextButton(
-                                  onPressed: () => controller.goToWordPage(e),
-                                  child: Text(
-                                    e,
-                                    style: appTextStyle.withColor(green),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GridView.count(
+                          shrinkWrap: true,
+                          crossAxisCount: 3,
+                          children: [
+                            ...controller.data.keys.map(
+                              (word) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: InkWell(
+                                  customBorder: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  onTap: () => controller.goToWordPage(word),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: green,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(20.0),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        (word as String).capitalizeFirst!,
+                                        style: appTextStyle
+                                            .withColor(green)
+                                            .withFontSize(18),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   } else if (controller.selectedToogleButtons[1] == true) {
