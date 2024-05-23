@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'package:dictionary/app/domain/entities/historic_entity.dart';
+import 'package:dictionary/app/domain/usecases/historic_usecases.dart';
 import 'package:dictionary/app/routes/app_pages.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../base/shared/application_controller.dart';
+import '../../data/repository/favorite/i_favorite_repository.dart';
+import '../../data/repository/historic/i_historic_repository.dart';
 import '../../data/repository/word/i_word_repository.dart';
 import '../../domain/entities/favorited_entity.dart';
 import '../../domain/entities/word_entity.dart';
+import '../../domain/usecases/favorite_usecases.dart';
+import '../../domain/usecases/word_usecases.dart';
 import '../../theme/app_colors.dart';
 import '../widgets/custom_dialog.dart';
 
@@ -37,9 +42,13 @@ class HomeController extends ApplicationController {
   ).obs;
 
   final IWordRepository iWordRepository;
+  final IHistoricRepository iHistoricRepository;
+  final IFavoriteRepository iFavoriteRepository;
 
   HomeController({
     required this.iWordRepository,
+    required this.iHistoricRepository,
+    required this.iFavoriteRepository,
   });
 
   @override
@@ -62,7 +71,10 @@ class HomeController extends ApplicationController {
 
   Future<void> goToWordPage(String word) async {
     try {
-      final result = await iWordRepository.getWordAttributes(word);
+      final result = await WordUsecases.getWordAttributes(
+        iWordRepository: iWordRepository,
+        word: word,
+      );
 
       if (result.isLeft) {
         showSnackBar(
@@ -89,7 +101,8 @@ class HomeController extends ApplicationController {
   Future<void> refreshFavoriteListMiddleware() async {
     showLoading.value = true;
     if (_isFavoritedSelected) {
-      favoriteList.value = await iWordRepository.getAllFavorites();
+      favoriteList.value =
+          await FavoriteUsecases.getAllFavorites(iFavoriteRepository);
     }
     showLoading.value = false;
   }
@@ -99,11 +112,14 @@ class HomeController extends ApplicationController {
       selectedToogleButtons[i] = i == index;
     }
     if (_isFavoritedSelected) {
-      favoriteList.value = await iWordRepository.getAllFavorites();
+      favoriteList.value =
+          await FavoriteUsecases.getAllFavorites(iFavoriteRepository);
       return;
     }
     if (_isHistoricSelected) {
-      historicList.value = await iWordRepository.getHistoric();
+      historicList.value = await HistoricUsecases.getHistoric(
+        iHistoricRepository: iHistoricRepository,
+      );
     }
   }
 

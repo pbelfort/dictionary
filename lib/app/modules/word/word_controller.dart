@@ -2,10 +2,13 @@ import 'package:dictionary/app/base/shared/application_controller.dart';
 import 'package:dictionary/app/domain/entities/favorited_entity.dart';
 import 'package:dictionary/app/domain/entities/historic_entity.dart';
 import 'package:dictionary/app/domain/entities/word_entity.dart';
+import 'package:dictionary/app/domain/usecases/historic_usecases.dart';
 import 'package:get/get.dart';
 
 import '../../base/adapters/audio/audioplayers/audio_player_adapter.dart';
-import '../../data/repository/word/i_word_repository.dart';
+import '../../data/repository/favorite/i_favorite_repository.dart';
+import '../../data/repository/historic/i_historic_repository.dart';
+import '../../domain/usecases/favorite_usecases.dart';
 
 class WordController extends ApplicationController {
   final WordEntity wordParameter = Get.arguments['wordEntity']!;
@@ -15,10 +18,12 @@ class WordController extends ApplicationController {
 
   RxBool favorited = false.obs;
 
-  final IWordRepository iWordRepository;
+  final IHistoricRepository iHistoricRepository;
+  final IFavoriteRepository iFavoriteRepository;
 
   WordController({
-    required this.iWordRepository,
+    required this.iHistoricRepository,
+    required this.iFavoriteRepository,
   });
 
   @override
@@ -41,7 +46,11 @@ class WordController extends ApplicationController {
       uuidUser: 'uuidUser',
       word: wordParameter.word,
     );
-    await iWordRepository.favorite(favorited);
+    await FavoriteUsecases.favorite(
+      iFavoriteRepository: iFavoriteRepository,
+      favorited: favorited,
+    );
+
     _checkFavorites();
   }
 
@@ -51,11 +60,15 @@ class WordController extends ApplicationController {
       word: wordParameter.word,
       dateTime: DateTime.now(),
     );
-    await iWordRepository.store(historicEntity);
+    await HistoricUsecases.store(
+      iHistoricRepository: iHistoricRepository,
+      historic: historicEntity,
+    );
   }
 
   Future<void> _checkFavorites() async {
-    final favoritedList = await iWordRepository.getAllFavorites();
+    final favoritedList =
+        await FavoriteUsecases.getAllFavorites(iFavoriteRepository);
     favorited.value =
         favoritedList.any((favorited) => favorited.word == wordParameter.word);
   }
