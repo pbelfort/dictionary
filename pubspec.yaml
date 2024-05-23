@@ -42,3 +42,5 @@ flutter:
     - assets/words_dictionary2.json
     - assets/words.json
     - assets/empty_state.json
+    - assets/empty_state.json
+    - assets/dictionary_logo.png

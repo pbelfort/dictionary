@@ -17,7 +17,7 @@ class LoginController extends ApplicationController {
   RxBool txtEmailWrongVisible = false.obs;
   RxBool showPassword = true.obs;
   RxString messageTextError = ''.obs;
-  RxDouble animatedPadding = 350.0.obs;
+  RxDouble animatedPadding = 280.0.obs;
 
   Future<void> signIn() async {
     showLoading.value = true;

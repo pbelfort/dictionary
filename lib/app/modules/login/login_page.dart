@@ -27,6 +27,16 @@ class LoginPage extends GetView<LoginController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 60.0),
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Image.asset(
+                      'assets/dictionary_logo.png',
+                    ),
+                  ),
+                ),
                 Text(
                   'Insert your email and password to log in',
                   style: appTextStyle.withColor(white),
@@ -36,10 +46,10 @@ class LoginPage extends GetView<LoginController> {
                   children: [
                     Obx(
                       () => TapRegion(
-                        onTapInside: (_) => controller.scaleKeyboard(280),
+                        onTapInside: (_) => controller.scaleKeyboard(200),
                         onTapOutside: (_) {
                           FocusScope.of(context).unfocus();
-                          controller.scaleKeyboard(350);
+                          controller.scaleKeyboard(280);
                         },
                         child: CustomTextFormField.email(
                           textEditingController: controller.loginTextController,
@@ -84,10 +94,10 @@ class LoginPage extends GetView<LoginController> {
                 const SizedBox(height: 20),
                 Obx(
                   () => TapRegion(
-                    onTapInside: (_) => controller.scaleKeyboard(250),
+                    onTapInside: (_) => controller.scaleKeyboard(200),
                     onTapOutside: (_) {
                       FocusScope.of(context).unfocus();
-                      controller.scaleKeyboard(350);
+                      controller.scaleKeyboard(280);
                     },
                     child: CustomTextFormField.password(
                       textEditingController: controller.passTextController,
