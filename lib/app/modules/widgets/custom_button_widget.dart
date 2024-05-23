@@ -22,7 +22,6 @@ class CustomButtonStyle {
 }
 
 class CustomButtonWidget extends StatelessWidget {
-  final String title;
   final CustomButtonStyle style;
   final EdgeInsets margin;
   final void Function()? onPressed;
@@ -31,24 +30,23 @@ class CustomButtonWidget extends StatelessWidget {
   final bool border;
   final double? borderRadius;
   final bool disabled;
-  final bool hasIcon;
   final IconData? iconData;
   final Color? iconColor;
   final String? iconSvg;
   final FocusNode? focusNode;
+  final Widget customText;
 
   const CustomButtonWidget({
     super.key,
-    required this.title,
     required this.style,
     required this.onPressed,
+    required this.customText,
     this.margin = EdgeInsets.zero,
     this.height,
     this.width,
     this.border = false,
     this.borderRadius,
     this.disabled = false,
-    this.hasIcon = false,
     this.iconSvg = "",
     this.iconColor,
     this.iconData,
@@ -81,28 +79,7 @@ class CustomButtonWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(borderRadius ?? 20),
                 ),
         ),
-        child: hasIcon
-            ? Container(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: style.fontSize,
-                    fontWeight: FontWeight.w600,
-                    color: disabled ? style.titleColor : style.titleColor,
-                  ),
-                ),
-              )
-            : Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: style.fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: disabled ? style.titleColor : style.titleColor,
-                ),
-              ),
+        child: customText,
       ),
     );
   }
