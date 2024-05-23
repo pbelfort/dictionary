@@ -14,9 +14,9 @@ class SplashController extends ApplicationController {
 
   @override
   Future<void> onReady() async {
-    animateLogo();
+    await animateLogo();
     _loading();
-    animateLogo();
+
     super.onReady();
   }
 
@@ -29,7 +29,6 @@ class SplashController extends ApplicationController {
     }
 
     if (firebaseAdapter.userIsLoggedIn()) {
-      await 2.5.delay();
       Get.offAllNamed(Routes.HOME);
       return;
     }
@@ -37,9 +36,9 @@ class SplashController extends ApplicationController {
     Get.offAllNamed(Routes.LOGIN);
   }
 
-  void animateLogo() async {
-    logoWidth.value = 400;
-    logoHeight.value = 200;
-    await 0.5.delay();
+  Future<void> animateLogo() async {
+    logoWidth.value = 600;
+    logoHeight.value = 300;
+    await 5.0.delay();
   }
 }

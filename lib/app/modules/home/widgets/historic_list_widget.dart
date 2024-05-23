@@ -1,8 +1,9 @@
+import 'package:dictionary/app/modules/home/widgets/empty_state_widget.dart';
 import 'package:dictionary/app/theme/app_colors.dart';
 import 'package:dictionary/app/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../home_controller.dart';
 
 class HistoricListWidget extends StatelessWidget {
@@ -15,31 +16,40 @@ class HistoricListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: controller.historicList.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: 1.0,
-            ),
-            child: ListTile(
-              leading: const Icon(Icons.history),
-              title: Text(
-                controller.historicList[index].word,
-                style: appTextStyle.withColor(white).withFontSize(18),
-              ),
-              subtitle: Text(
-                DateFormat('yyyy-MM-dd hh:mm')
-                    .format(controller.historicList[index].dateTime),
-                style: appTextStyle.withColor(white).withFontSize(18),
-              ),
-              iconColor: green,
-            ),
+    return Obx(
+      () {
+        if (controller.historicList.isEmpty) {
+          return const EmptyStateWidget(
+            description: 'You dont have any item in history list!',
           );
-        },
-      ),
+        }
+        return Expanded(
+          child: ListView.builder(
+            itemCount: controller.historicList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 1.0,
+                ),
+                child: ListTile(
+                  leading: const Icon(Icons.history),
+                  title: Text(
+                    controller.historicList[index].word,
+                    style: appTextStyle.withColor(white).withFontSize(18),
+                  ),
+                  subtitle: Text(
+                    DateFormat('yyyy-MM-dd hh:mm')
+                        .format(controller.historicList[index].dateTime),
+                    style: appTextStyle.withColor(white).withFontSize(18),
+                  ),
+                  iconColor: green,
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
