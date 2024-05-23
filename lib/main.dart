@@ -1,3 +1,4 @@
+import 'package:dictionary/app/base/adapters/database/firebase/firebase_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,8 @@ import 'app/theme/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesAdapter().init();
+  await FirebaseAdapter().initializeApp();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

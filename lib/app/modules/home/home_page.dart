@@ -13,6 +13,19 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appBackgroundColor,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: white,
+            ),
+            onPressed: () => controller.showLogoutDialog(context),
+          )
+        ],
+      ),
       extendBody: true,
       backgroundColor: appBackgroundColor,
       body: SafeArea(

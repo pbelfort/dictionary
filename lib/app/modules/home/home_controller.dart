@@ -10,6 +10,7 @@ import '../../data/repository/word/i_word_repository.dart';
 import '../../domain/entities/favorited_entity.dart';
 import '../../domain/entities/word_entity.dart';
 import '../../theme/app_colors.dart';
+import '../widgets/custom_dialog.dart';
 
 class HomeController extends ApplicationController {
   bool get _isFavoritedSelected => selectedToogleButtons[2] == true;
@@ -104,5 +105,58 @@ class HomeController extends ApplicationController {
     if (_isHistoricSelected) {
       historicList.value = await iWordRepository.getHistoric();
     }
+  }
+
+  signOut() async {
+    await firebaseAdapter.signOut();
+    Get.offAllNamed(Routes.LOGIN);
+  }
+
+  showLogoutDialog(
+    BuildContext context,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CustomDialog(
+        icon: Icons.info_outline_rounded,
+        title: 'Logout',
+        message: 'Deseja realmente sair?',
+        iconColor: green,
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: white,
+              backgroundColor: red,
+              minimumSize: const Size(0, 45),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text(
+              'Não',
+              textAlign: TextAlign.justify,
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: appBackgroundColor,
+              backgroundColor: green,
+              minimumSize: const Size(0, 45),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            onPressed: signOut,
+            child: const Text(
+              'Sim',
+              textAlign: TextAlign.justify,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import '../../routes/app_pages.dart';
 
-class SplashController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class SplashController extends GetxController {
   RxDouble logoWidth = 0.0.obs;
   RxDouble logoHeight = 0.0.obs;
 
@@ -18,7 +17,7 @@ class SplashController extends GetxController
   _loading() async {
     await 2.5.delay();
 
-    Get.offAllNamed(Routes.HOME);
+    Get.offAllNamed(Routes.LOGIN);
   }
 
   void animateLogo() async {

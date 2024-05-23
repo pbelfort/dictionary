@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../base/middleware/home_reload_middleware.dart';
 import '../modules/home/home_binding.dart';
 import '../modules/home/home_page.dart';
+import '../modules/login/login_binding.dart';
+import '../modules/login/login_page.dart';
 import '../modules/splash/splash_binding.dart';
 import '../modules/splash/splash_page.dart';
 import '../modules/word/word_binding.dart';
@@ -20,6 +22,12 @@ class AppPages {
       binding: SplashBinding(),
     ),
 
+    //LOGIN PAGE
+    GetPage(
+      name: Routes.LOGIN,
+      page: () => const LoginPage(),
+      binding: LoginBinding(),
+    ),
     // HOME PAGE
     GetPage(
       name: Routes.HOME,

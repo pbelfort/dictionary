@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../adapters/database/firebase/firebase_adapter.dart';
+
 abstract class ApplicationController extends GetxController {
+  final firebaseAdapter = FirebaseAdapter();
+
   final RxBool showLoading = false.obs;
 
   final ScrollController scrollController = ScrollController();
