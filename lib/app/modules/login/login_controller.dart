@@ -3,6 +3,7 @@ import 'package:dictionary/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class LoginController extends ApplicationController {
   // Form login
@@ -17,6 +18,8 @@ class LoginController extends ApplicationController {
   RxBool showPassword = true.obs;
   RxString messageTextError = ''.obs;
 
+  RxDouble animatedPadding = 350.0.obs;
+
   Future<void> signIn() async {
     showLoading.value = true;
     final userSignedIn = await firebaseAdapter.signInWithEmailAndPassword(
@@ -28,5 +31,9 @@ class LoginController extends ApplicationController {
     if (userSignedIn) {
       Get.offAllNamed(Routes.HOME);
     }
+  }
+
+  scaleKeyboard(double scale) {
+    animatedPadding.value = scale;
   }
 }
