@@ -37,4 +37,8 @@ class SharedPreferencesAdapter implements ISharedPreferencesAdapter {
   Future<void> clear() async {
     await _preferences?.clear();
   }
+
+  bool containsKey(String key) {
+    return _preferences?.containsKey(key) ?? false;
+  }
 }

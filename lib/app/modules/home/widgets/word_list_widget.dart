@@ -14,7 +14,7 @@ class WordListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final wordList = controller.data.keys.cast<String>().toList();
+    final wordList = controller.jsonWords.keys.cast<String>().toList();
 
     return Expanded(
       child: Padding(

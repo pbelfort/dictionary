@@ -9,7 +9,10 @@ class FavoritedModel extends FavoritedEntity {
   });
 
   factory FavoritedModel.fromMap(Map<String, dynamic> map) {
-    return FavoritedModel(uuidUser: map['uuidUser'], word: map['word']);
+    return FavoritedModel(
+      uuidUser: map['uuidUser'],
+      word: map['word'],
+    );
   }
 
   Map<String, dynamic> toJson() => {

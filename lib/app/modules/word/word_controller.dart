@@ -42,8 +42,9 @@ class WordController extends ApplicationController {
   }
 
   Future<void> favorite() async {
+    final user = firebaseAdapter.getUser();
     final favorited = FavoritedEntity(
-      uuidUser: 'uuidUser',
+      uuidUser: user!.uid,
       word: wordParameter.word,
     );
     await FavoriteUsecases.favorite(
@@ -54,9 +55,10 @@ class WordController extends ApplicationController {
     _checkFavorites();
   }
 
-  _store() async {
+  Future<void> _store() async {
+    final user = firebaseAdapter.getUser();
     final historicEntity = HistoricEntity(
-      uuidUser: 'uuidUser',
+      uuidUser: user!.uid,
       word: wordParameter.word,
       dateTime: DateTime.now(),
     );

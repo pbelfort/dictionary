@@ -10,13 +10,13 @@ class LoginController extends ApplicationController {
   final loginTextController = TextEditingController();
   final passTextController = TextEditingController();
 
+  //Rx Strings definitions
   RxBool textInputUsernameVisible = false.obs;
   RxBool textInputPasswordVisible = false.obs;
   RxBool txtPasswordWrongVisible = false.obs;
   RxBool txtEmailWrongVisible = false.obs;
   RxBool showPassword = true.obs;
   RxString messageTextError = ''.obs;
-
   RxDouble animatedPadding = 350.0.obs;
 
   Future<void> signIn() async {
@@ -32,7 +32,7 @@ class LoginController extends ApplicationController {
     }
   }
 
-  scaleKeyboard(double scale) {
+  void scaleKeyboard(double scale) {
     animatedPadding.value = scale;
   }
 }

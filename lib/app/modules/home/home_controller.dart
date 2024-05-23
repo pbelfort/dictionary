@@ -4,7 +4,6 @@ import 'package:dictionary/app/domain/usecases/historic_usecases.dart';
 import 'package:dictionary/app/routes/app_pages.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../base/shared/application_controller.dart';
 import '../../data/repository/favorite/i_favorite_repository.dart';
@@ -31,7 +30,7 @@ class HomeController extends ApplicationController {
   final RxList<FavoritedEntity> favoriteList = <FavoritedEntity>[].obs;
   final RxList<HistoricEntity> historicList = <HistoricEntity>[].obs;
 
-  RxMap data = {}.obs;
+  RxMap jsonWords = {}.obs;
 
   Rx<WordEntity> wordEntity = WordEntity(
     word: '',
@@ -54,18 +53,19 @@ class HomeController extends ApplicationController {
   @override
   onInit() async {
     showLoading.value = true;
-    await readJson();
+
+    jsonWords.value = await compute(getWordsFromDB, iWordRepository);
+
     showLoading.value = false;
     super.onInit();
   }
 
-  Future<void> readJson() async {
-    final String response =
-        await rootBundle.loadString('assets/words_dictionary2.json');
-    data.value = await compute(parseJson, response);
+  static Map<String, dynamic> parseJson(String response) {
+    return json.decode(response);
   }
 
-  static Map<String, dynamic> parseJson(String response) {
+  Map<String, dynamic> getWordsFromDB(iWordRepository) {
+    final response = WordUsecases.getWordsFromDB(iWordRepository);
     return json.decode(response);
   }
 
@@ -123,12 +123,12 @@ class HomeController extends ApplicationController {
     }
   }
 
-  signOut() async {
+  void signOut() async {
     await firebaseAdapter.signOut();
     Get.offAllNamed(Routes.LOGIN);
   }
 
-  showLogoutDialog(
+  void showLogoutDialog(
     BuildContext context,
   ) {
     showDialog(

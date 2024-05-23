@@ -13,4 +13,19 @@ class WordRepository implements IWordRepository {
     final response = await provider.getWordAttributesFromApi(word);
     return response;
   }
+
+  @override
+  void saveWordInDB(String responseJson) {
+    return provider.saveWordInDB(responseJson);
+  }
+
+  @override
+  String getWordsFromDB() {
+    return provider.getWordsFromDB();
+  }
+
+  @override
+  bool hasWordsDBValues() {
+    return provider.hasWordsDBValues();
+  }
 }

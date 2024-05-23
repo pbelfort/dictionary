@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../adapters/database/firebase/firebase_adapter.dart';
 
 abstract class ApplicationController extends GetxController {
@@ -8,18 +7,7 @@ abstract class ApplicationController extends GetxController {
 
   final RxBool showLoading = false.obs;
 
-  final ScrollController scrollController = ScrollController();
-
-  final FocusNode focusNode = FocusNode();
-
-  void focusNodeListener({
-    required Function() hasFocusAction,
-    required Function() hasNoFocusAction,
-  }) {
-    focusNode.addListener(
-      () => focusNode.hasFocus ? hasFocusAction() : hasNoFocusAction(),
-    );
-  }
+  String responseJson = '';
 
   void showSnackBar({
     required String title,
@@ -42,22 +30,6 @@ abstract class ApplicationController extends GetxController {
         iconData,
         color: iconColor,
       ),
-    );
-  }
-
-  void scrollUpPage() {
-    scrollController.animateTo(
-      scrollController.position.minScrollExtent,
-      duration: const Duration(seconds: 1),
-      curve: Curves.ease,
-    );
-  }
-
-  void srcollDownPage() {
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
-      duration: const Duration(seconds: 1),
-      curve: Curves.ease,
     );
   }
 

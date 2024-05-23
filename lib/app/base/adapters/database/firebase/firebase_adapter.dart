@@ -14,14 +14,19 @@ class FirebaseAdapter implements IFirebaseAdapter {
         options: DefaultFirebaseOptions.currentPlatform);
   }
 
+  Future<void> signOut() async => await FirebaseAuth.instance.signOut();
+
+  bool userIsLoggedIn() => FirebaseAuth.instance.currentUser != null;
+
+  User? getUser() => FirebaseAuth.instance.currentUser;
+
   @override
   Future<bool> signInWithEmailAndPassword({
     required String emailAddress,
     required String password,
   }) async {
-    final firebaseAuth = FirebaseAuth.instance;
-
     try {
+      final firebaseAuth = FirebaseAuth.instance;
       await firebaseAuth.signInWithEmailAndPassword(
         email: emailAddress,
         password: password,
@@ -46,11 +51,6 @@ class FirebaseAdapter implements IFirebaseAdapter {
       }
     }
     return false;
-  }
-
-  Future<void> signOut() async {
-    final firebaseAuth = FirebaseAuth.instance;
-    await firebaseAuth.signOut();
   }
 }
 
