@@ -34,7 +34,7 @@ class FavoriteProvider implements IFavoriteProvider {
         json.encode(
           wordFavoritedList
               .map<Map<String, dynamic>>(
-                  (quiz) => FavoritedModel.fromEntity(quiz).toJson())
+                  (favorite) => FavoritedModel.fromEntity(favorite).toJson())
               .toList(),
         ),
       );
@@ -47,7 +47,7 @@ class FavoriteProvider implements IFavoriteProvider {
       json.encode(
         list
             .map<Map<String, dynamic>>(
-                (quiz) => FavoritedModel.fromEntity(quiz).toJson())
+                (favorite) => FavoritedModel.fromEntity(favorite).toJson())
             .toList(),
       ),
     );

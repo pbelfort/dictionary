@@ -3,6 +3,7 @@ import 'package:dictionary/app/domain/entities/favorited_entity.dart';
 import 'package:dictionary/app/domain/entities/historic_entity.dart';
 import 'package:dictionary/app/domain/entities/word_entity.dart';
 import 'package:dictionary/app/domain/usecases/historic_usecases.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../../base/adapters/audio/audioplayers/audio_player_adapter.dart';
@@ -21,6 +22,8 @@ class WordController extends ApplicationController {
   final IHistoricRepository iHistoricRepository;
   final IFavoriteRepository iFavoriteRepository;
 
+  User? user;
+
   WordController({
     required this.iHistoricRepository,
     required this.iFavoriteRepository,
@@ -28,6 +31,7 @@ class WordController extends ApplicationController {
 
   @override
   onInit() async {
+    user ??= firebaseAdapter.getUser();
     _store();
     _checkFavorites();
     super.onInit();
@@ -42,7 +46,6 @@ class WordController extends ApplicationController {
   }
 
   Future<void> favorite() async {
-    final user = firebaseAdapter.getUser();
     final favorited = FavoritedEntity(
       uuidUser: user!.uid,
       word: wordParameter.word,
@@ -56,7 +59,6 @@ class WordController extends ApplicationController {
   }
 
   Future<void> _store() async {
-    final user = firebaseAdapter.getUser();
     final historicEntity = HistoricEntity(
       uuidUser: user!.uid,
       word: wordParameter.word,

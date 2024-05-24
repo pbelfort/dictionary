@@ -1,11 +1,9 @@
-import 'package:flutter_gherkin/flutter_gherkin.dart'; // notice new import name
+import 'dart:developer';
+import 'package:flutter_gherkin/flutter_gherkin.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gherkin/gherkin.dart';
-
-// The application under test.
 import 'package:dictionary/main.dart' as app;
-
-import 'gherkin/given/given_i_am_in_route.dart';
+import 'gherkin_configuration.dart';
 
 part 'gherkin_suite_test.g.dart';
 
@@ -13,19 +11,20 @@ part 'gherkin_suite_test.g.dart';
 void main() {
   executeTestSuite(
     configuration: FlutterTestConfiguration(
-      stepDefinitions: [givenIAmInHome()],
+      stepDefinitions: stepDefinitions,
+      customStepParameterDefinitions: parameters,
       order: ExecutionOrder.alphabetical,
       features: [RegExp('features/*.*.feature')],
       reporters: [
         StdoutReporter(MessageLevel.error)
-          ..setWriteLineFn(print)
-          ..setWriteFn(print),
+          ..setWriteLineFn(log)
+          ..setWriteFn(log),
         ProgressReporter()
-          ..setWriteLineFn(print)
-          ..setWriteFn(print),
+          ..setWriteLineFn(log)
+          ..setWriteFn(log),
         TestRunSummaryReporter()
-          ..setWriteLineFn(print)
-          ..setWriteFn(print),
+          ..setWriteLineFn(log)
+          ..setWriteFn(log),
         JsonReporter(
           writeReport: (_, __) => Future<void>.value(),
         )

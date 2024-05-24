@@ -20,7 +20,7 @@ class HomeController extends ApplicationController {
   bool get _isFavoritedSelected => selectedToogleButtons[2] == true;
   bool get _isHistoricSelected => selectedToogleButtons[1] == true;
 
-  final List<Widget> fruits = const <Widget>[
+  final List<Widget> toogleButtonList = const <Widget>[
     Text('Word list'),
     Text('History'),
     Text('Favorites')

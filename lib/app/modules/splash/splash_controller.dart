@@ -15,13 +15,13 @@ class SplashController extends ApplicationController {
   @override
   Future<void> onReady() async {
     await animateLogo();
-    _loading();
+    loading();
 
     super.onReady();
   }
 
   // ignore: always_declare_return_types
-  Future<void> _loading() async {
+  Future<void> loading() async {
     final hasWordsDBValues = WordUsecases.hasWordsDBValues(iWordRepository);
 
     if (!hasWordsDBValues) {
@@ -29,7 +29,7 @@ class SplashController extends ApplicationController {
     }
 
     if (firebaseAdapter.userIsLoggedIn()) {
-      Get.offAllNamed(Routes.HOME);
+      Get.toNamed(Routes.HOME);
       return;
     }
 

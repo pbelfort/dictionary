@@ -1,4 +1,3 @@
-import 'package:dictionary/app/modules/home/widgets/empty_state_widget.dart';
 import 'package:dictionary/app/theme/app_colors.dart';
 import 'package:dictionary/app/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +18,12 @@ class HistoricListWidget extends StatelessWidget {
     return Obx(
       () {
         if (controller.historicList.isEmpty) {
-          return const EmptyStateWidget(
-            description: 'You dont have any item in history list!',
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 200.0),
+            child: Text(
+              'You dont have any item in history list!',
+              style: appTextStyle.withColor(white),
+            ),
           );
         }
         return Expanded(

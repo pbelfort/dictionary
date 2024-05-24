@@ -52,7 +52,7 @@ class HistoricProvider implements IHistoricProvider {
         json.encode(
           wordHistoricList
               .map<Map<String, dynamic>>(
-                  (quiz) => HistoricModel.fromEntity(quiz).toJson())
+                  (historic) => HistoricModel.fromEntity(historic).toJson())
               .toList(),
         ),
       );
@@ -64,7 +64,7 @@ class HistoricProvider implements IHistoricProvider {
       json.encode(
         list
             .map<Map<String, dynamic>>(
-                (quiz) => HistoricModel.fromEntity(quiz).toJson())
+                (historic) => HistoricModel.fromEntity(historic).toJson())
             .toList(),
       ),
     );

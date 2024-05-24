@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../home_controller.dart';
-import 'empty_state_widget.dart';
 
 class FavoriteListWidget extends StatelessWidget {
   final HomeController controller;
@@ -19,8 +18,12 @@ class FavoriteListWidget extends StatelessWidget {
     return Obx(
       () {
         if (controller.favoriteList.isEmpty) {
-          return const EmptyStateWidget(
-            description: 'You dont have any item in favorite list!',
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 200.0),
+            child: Text(
+              'You dont have any item in favorite list!',
+              style: appTextStyle.withColor(white),
+            ),
           );
         }
         return Expanded(

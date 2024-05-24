@@ -1,11 +1,11 @@
 import 'package:dictionary/app/base/adapters/database/firebase/firebase_adapter.dart';
+import 'package:dictionary/app/modules/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'app/base/adapters/shared_adapter/shared_preferences/shared_preferences_adapter.dart';
 import 'app/base/shared/application_binding.dart';
-import 'app/modules/splash/splash_binding.dart';
-import 'app/modules/splash/splash_page.dart';
+import 'app/modules/login/login_binding.dart';
 import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
 
@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.SPLASH,
-        initialBinding: SplashBinding(),
-        home: const SplashPage(),
+        initialBinding: LoginBinding(),
+        home: const LoginPage(),
         theme: appThemeData,
         defaultTransition: Transition.leftToRight,
         getPages: AppPages.routes,

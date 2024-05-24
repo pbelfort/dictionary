@@ -16,6 +16,7 @@ class HomePage extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: appBackgroundColor,
         elevation: 0,
+        leading: const SizedBox.shrink(),
         actions: [
           IconButton(
             icon: const Icon(
@@ -58,7 +59,7 @@ class HomePage extends GetView<HomeController> {
                         minWidth: 120.0,
                       ),
                       isSelected: controller.selectedToogleButtons,
-                      children: controller.fruits,
+                      children: controller.toogleButtonList,
                     ),
                   ),
                 ],
