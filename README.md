@@ -5,13 +5,14 @@
 ## Projeto de dicionário para auxiliar na busca do significado da palavra e sua fonética.
 ![dictionary](https://github.com/pbelfort/dictionary/assets/42588868/1bdc5736-7977-46f7-9167-f50a41dc216f)
 
-## Principais Tecnologias utilizadas
+## Tecnologias utilizadas
 
 - Flutter
 - [Gherkin](https://medium.com/brasilflutter/flutter-gherkin-criando-automa%C3%A7%C3%B5es-de-teste-de-uma-forma-mais-simples-43f9da4f47e5) + [Flutter Gherkin](https://pub.dev/packages/flutter_gherkin)
 - [SharedPreferences](https://pub.dev/packages/shared_preferences)
 - [GetX](https://pub.dev/packages/get)
 - [Audioplayers](https://pub.dev/packages/audioplayers)
+- Firebase
 
 ## Instruções de instalação
 
@@ -29,6 +30,12 @@ Agora basta executar o comando:
 
 ```flutter run```
 
+## Instruções de entrada
+
+Para fazer o login no aplicativo use as seguintes credenciais
+
+```email: test@dictionary.com```
+```password: dict1010```
 
 ## Organização do código
 
@@ -59,6 +66,10 @@ main.dart
 ## Instruções dos testes de integração
 
 Foi utilizado o [Flutter Gherkin](https://pub.dev/packages/flutter_gherkin) para realizar os testes de integração do aplicativo. Com este package foi possível utilizar o [Cucumber](https://cucumber.io/docs/cucumber/), ferramenta de teste de software que suporta o Desenvolvimento Orientado por Comportamento (BDD - Behavior Driven Development), cujo objetivo principal é permitir uma comunicação eficaz e clara entre os membros da equipe técnica e os stakeholders não técnicos.
+
+É necessário trocar os valores das variáveis loginTextController e passTextController para que o aplicativo faça login automaticament. Abaixo está o caminho para a pasta:
+
+> integration_test/given/given_i_am_in_route.dart
 
 Para executar os testes de integração basta executar o comando:
 
