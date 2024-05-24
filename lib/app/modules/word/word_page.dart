@@ -129,11 +129,21 @@ class WordPage extends GetView<WordController> {
                 children: [
                   TextButton(
                     onPressed: Get.back,
-                    child: const Text('Voltar'),
+                    child: Text(
+                      'Voltar',
+                      style: appTextStyle
+                          .withColor(green)
+                          .withFontWeight(FontWeight.bold),
+                    ),
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text('Próximo'),
+                    child: Text(
+                      'Próximo',
+                      style: appTextStyle
+                          .withColor(green)
+                          .withFontWeight(FontWeight.bold),
+                    ),
                   ),
                 ],
               )

@@ -47,7 +47,7 @@ flutter:
 
   assets:
     - assets/words_dictionary.json
-    - assets/words_dictionary2.json
+    - assets/test_words_dictionary.json
     - assets/words.json
     - assets/empty_state.json
     - assets/empty_state.json

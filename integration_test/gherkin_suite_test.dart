@@ -30,6 +30,6 @@ void main() {
         )
       ],
     ),
-    appMainFunction: (World world) async => app.main(),
+    appMainFunction: (World world) async => app.mainTest(),
   );
 }

@@ -16,7 +16,7 @@ abstract class WordUsecases {
     IWordRepository iWordRepository,
   ) async {
     final responseJson =
-        await rootBundle.loadString('assets/words_dictionary2.json');
+        await rootBundle.loadString('assets/words_dictionary.json');
 
     iWordRepository.saveWordInDB(responseJson);
   }
