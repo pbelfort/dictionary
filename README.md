@@ -68,6 +68,7 @@ Para executar os testes de integração basta executar o comando:
 
 https://github.com/pbelfort/dictionary/assets/42588868/3254b22e-5349-4f54-8a38-7bff985a2254
 
-## Explorando o Audioplayers
+# Explorando o Audioplayers
+## Ligue o som para escutar a fonética da palavra.
 
 https://github.com/pbelfort/dictionary/assets/42588868/1ab1dbb4-2b45-4ac0-8ad5-1fc156d9671b
