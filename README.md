@@ -3,7 +3,9 @@
 > This is a challenge by [Coodesh](https://coodesh.com/)
 
 ## Projeto de dicionário para auxiliar na busca do significado da palavra e sua fonética.
-![dictionary](https://github.com/pbelfort/dictionary/assets/42588868/1bdc5736-7977-46f7-9167-f50a41dc216f)
+
+![screenshot](https://github.com/pbelfort/dictionary/assets/42588868/5fe7580f-943f-4be1-b04b-c92322d23905)
+
 
 ## Tecnologias utilizadas
 
