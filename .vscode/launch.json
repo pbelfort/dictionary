@@ -20,6 +20,15 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "Debug integration_test",
+            "program": "test_driver/integration_test_driver.dart",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--target=integration_test/gherkin_suite_test.dart",
+            ],
         }
     ]
 }

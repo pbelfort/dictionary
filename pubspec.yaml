@@ -14,7 +14,6 @@ dependencies:
   
   http: ^1.0.0
   get: ^4.6.5
-  gherkin: ^3.1.0
   audioplayers: ^6.0.0
   shared_preferences: ^2.2.3
   either_dart: ^1.0.0
@@ -22,17 +21,18 @@ dependencies:
   firebase_auth: ^4.19.6
   firebase_core: ^2.31.1
   lottie: ^3.1.2
-
-  
-
-
   cupertino_icons: ^1.0.6
+  gherkin: ^3.1.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   flutter_lints: ^3.0.0
+  build_runner: ^2.4.10
+  flutter_gherkin: ^3.0.0-rc.17
   
 flutter_launcher_icons:
   android: "launcher_icon"

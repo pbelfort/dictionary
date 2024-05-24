@@ -5,7 +5,7 @@ import '../../../domain/entities/word_entity.dart';
 abstract class IWordProvider {
   Future<Either<HttpError, WordEntity>> getWordAttributesFromApi(String word);
 
-  void saveWordInDB(String responseJson);
+  Future<void> saveWordInDB(String responseJson);
 
   String getWordsFromDB();
 

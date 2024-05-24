@@ -15,8 +15,8 @@ class WordRepository implements IWordRepository {
   }
 
   @override
-  void saveWordInDB(String responseJson) {
-    return provider.saveWordInDB(responseJson);
+  Future<void> saveWordInDB(String responseJson) async {
+    return await provider.saveWordInDB(responseJson);
   }
 
   @override
