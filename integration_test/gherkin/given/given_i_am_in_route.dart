@@ -8,8 +8,8 @@ StepDefinitionGeneric givenIAmInHome() {
     'I am in route home',
     (context) async {
       final loginController = Get.find<LoginController>();
-      loginController.loginTextController.text = "teste@teste.com";
-      loginController.passTextController.text = "Abc123";
+      loginController.loginTextController.text = "";
+      loginController.passTextController.text = "";
 
       await loginController.signIn();
 
