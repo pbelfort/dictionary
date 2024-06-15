@@ -1,7 +1,5 @@
 # Dictionary Mobile App
 
-> This is a challenge by [Coodesh](https://coodesh.com/)
-
 ## Projeto de dicionário para auxiliar na busca do significado da palavra e sua fonética.
 
 ![screenshot](https://github.com/pbelfort/dictionary/assets/42588868/ca201930-8f42-4982-aa74-45305a5491be)
